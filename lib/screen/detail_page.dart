@@ -38,9 +38,9 @@ class _DetailPage extends State<DetailPage> {
 
   String matchRoute(String _routeId) {
     for (var item in _routesData) {
-      print('plz>>${item.routeId}, prefix>>$_routeId');
+      //print('plz>>${item.routeId}, prefix>>$_routeId');
       if (item.routeId.compareTo(_routeId) == 0) {
-        print('compare>>${item.routeId}, ${_routeId}');
+        //print('compare>>${item.routeId}, ${_routeId}');
         return item.routeName;
       }
     }
@@ -283,7 +283,7 @@ class _DetailPage extends State<DetailPage> {
                             return cache;
                           },
                           onError: (OperationException error) =>
-                              _simpleAlert(context, error.toString()),
+                              _simpleAlert(context, error),
                           onCompleted: (dynamic resultData) =>
                               Navigator.of(context).pop(),
                         ),
@@ -364,11 +364,13 @@ class _DetailPage extends State<DetailPage> {
   }
 }
 
-void _simpleAlert(BuildContext context, String text) => showDialog<AlertDialog>(
+void _simpleAlert(BuildContext context, OperationException error) =>
+    showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
+        print(error.graphqlErrors.single.message.toString());
         return AlertDialog(
-          title: Text(text),
+          title: Text(error.toString()),
           actions: <Widget>[
             SimpleDialogOption(
               child: const Text('확인'),
