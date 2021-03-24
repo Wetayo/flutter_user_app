@@ -1,6 +1,6 @@
 const String _urlPrefix =
     'http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey=';
-const String _serviceKey = '1234567890';
+const String _serviceKey = '1122334455';
 const String _idPrefix = '&stationId=';
 const String _defaultid = '123456789';
 
@@ -11,7 +11,7 @@ String buildUrl(String id) {
   sb.write(_urlPrefix);
   sb.write(_serviceKey);
   sb.write(_idPrefix);
-  sb.write('200000078');
+  sb.write(id);
 
   return sb.toString();
 }

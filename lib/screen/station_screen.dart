@@ -13,8 +13,8 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _text = '현재 위치 : 모름';
   //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
-  String _x = '126.7309';
-  String _y = '37.3412';
+  String _x = '126.7352';
+  String _y = '37.3889';
 
   bool _isLoading = false;
 
@@ -119,7 +119,7 @@ class _StationScreenState extends State<StationScreen> {
                   Query(
                     options: QueryOptions(
                       document: gql("""query{
-            getStationAndRoutes(gpsY: 37.3740667 gpsX: 126.84246 distance: 0.2){
+            getStationAndRoutes(gpsY: 37.3889 gpsX: 126.7352 distance: 0.3){
               stationId
               stationName
               mobileNumber
@@ -145,6 +145,11 @@ class _StationScreenState extends State<StationScreen> {
 
                         return Center(
                           child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (result.data["getStationAndRoutes"].length <= 0) {
+                        return Center(
+                          child: Text("가까운 정류소가 없어요ㅠㅠ"),
                         );
                       } else {
                         _isLoading = result.isLoading;
