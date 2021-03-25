@@ -119,7 +119,7 @@ class _StationScreenState extends State<StationScreen> {
                   Query(
                     options: QueryOptions(
                       document: gql("""query{
-            getStations(gpsY: 37.3889 gpsX: 126.7352 distance: 0.3){
+            getStations(gpsY: $_y gpsX: $_x distance: 0.3){
               stationId
               stationName
               mobileNumber
