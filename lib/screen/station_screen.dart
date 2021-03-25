@@ -118,8 +118,9 @@ class _StationScreenState extends State<StationScreen> {
                   ),
                   Query(
                     options: QueryOptions(
-                      document: gql("""query{
-            getStations(gpsY: $_y gpsX: $_x distance: 0.3){
+                        document: gql(
+                            """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
+            getStations(gpsY: \$gpsY gpsX: \$gpsX distance: \$distance){
               stationId
               stationName
               mobileNumber
@@ -130,7 +131,7 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-                    ),
+                        variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
                     builder: (QueryResult result,
                         {VoidCallback refetch, FetchMore fetchMore}) {
                       if (result.exception != null) {
