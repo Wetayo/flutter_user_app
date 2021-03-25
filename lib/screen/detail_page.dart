@@ -38,9 +38,9 @@ class _DetailPage extends State<DetailPage> {
 
   String matchRoute(String _routeId) {
     for (var item in _routesData) {
-      print('plz>>${item.routeId}, prefix>>$_routeId');
+      //print('plz>>${item.routeId}, prefix>>$_routeId');
       if (item.routeId.compareTo(_routeId) == 0) {
-        print('compare>>${item.routeId}, ${_routeId}');
+        //print('compare>>${item.routeId}, ${_routeId}');
         return item.routeName;
       }
     }
@@ -119,6 +119,7 @@ class _DetailPage extends State<DetailPage> {
     //setState(() => _isLoading = true);
 
     //String station = _stationController.text;
+    print('widget item >> ${widget.item}');
     var response = await http.get(route_api.buildUrl(widget.item));
     String responseBody = response.body;
     xml2Json.parse(responseBody);
@@ -283,7 +284,7 @@ class _DetailPage extends State<DetailPage> {
                             return cache;
                           },
                           onError: (OperationException error) =>
-                              _simpleAlert(context, error.toString()),
+                              _simpleAlert(context, error),
                           onCompleted: (dynamic resultData) =>
                               Navigator.of(context).pop(),
                         ),
@@ -364,11 +365,15 @@ class _DetailPage extends State<DetailPage> {
   }
 }
 
-void _simpleAlert(BuildContext context, String text) => showDialog<AlertDialog>(
+void _simpleAlert(BuildContext context, OperationException error) =>
+    showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
+        Map<String, dynamic> errorcode = error.graphqlErrors.single.extensions;
+        print(errorcode.values.toString());
+        print(error.graphqlErrors);
         return AlertDialog(
-          title: Text(text),
+          title: Text(MutationError(errorcode.values.toString())),
           actions: <Widget>[
             SimpleDialogOption(
               child: const Text('확인'),
@@ -380,3 +385,11 @@ void _simpleAlert(BuildContext context, String text) => showDialog<AlertDialog>(
         );
       },
     );
+
+String MutationError(String errorCode) {
+  if (errorCode == '430') {
+    return "이미 승차예약이 있어요";
+  } else {
+    return "다른 에러 발생!!";
+  }
+}
