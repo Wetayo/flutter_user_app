@@ -370,10 +370,10 @@ void _simpleAlert(BuildContext context, OperationException error) =>
       context: context,
       builder: (BuildContext context) {
         Map<String, dynamic> errorcode = error.graphqlErrors.single.extensions;
-        print(errorcode.values.toString());
+        print(errorcode['errorCode'].toString());
         print(error.graphqlErrors);
         return AlertDialog(
-          title: Text(MutationError(errorcode.values.toString())),
+          title: Text(MutationError(errorcode['errorCode'].toString())),
           actions: <Widget>[
             SimpleDialogOption(
               child: const Text('확인'),

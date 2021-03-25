@@ -126,7 +126,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		YrXxk+v4X7o3OPV+QSgISLs1tkQ=
+		ju6mo+gC5LDGqQbbhCBOT1S8NZY=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -134,7 +134,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		uMu2KyYfm9BWvB2bg0ABtT9RsVM=
+		5kKUDk13u9HlKmpbt/K5eWoC0qU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
@@ -158,7 +158,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		F+lGFyDCUUjK/15J44C4rX+5wkA=
+		vqnJ7ejZ+co2MQZsiHI6MSsiYec=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -226,7 +226,7 @@
 		</data>
 		<key>Frameworks/connectivity.framework/connectivity</key>
 		<data>
-		zYIqMEIniLFx3CoKQpBKymo3I3k=
+		vNBB8m7MUygUlbhRXHfUmFxUqbA=
 		</data>
 		<key>Frameworks/fluttertoast.framework/Info.plist</key>
 		<data>
@@ -238,7 +238,7 @@
 		</data>
 		<key>Frameworks/fluttertoast.framework/fluttertoast</key>
 		<data>
-		TsMdR+aO25kEknlimzyiE1TOVhA=
+		4Z/7hUUKFiWgbC1s95p4gB2+qDE=
 		</data>
 		<key>Frameworks/geolocator.framework/Info.plist</key>
 		<data>
@@ -250,7 +250,7 @@
 		</data>
 		<key>Frameworks/geolocator.framework/geolocator</key>
 		<data>
-		jaZh9Zih9Zhb5MtZMaaYRYqjQ5o=
+		fcab3XuekS2FGC2/+o7pPwZ6j5U=
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
@@ -290,7 +290,7 @@
 		</data>
 		<key>Frameworks/location.framework/location</key>
 		<data>
-		NlRZ7no7IhGOnfSR2QZWm+mwvF4=
+		U7XdzeqsQSxkYK1vZ2ehh/+I3RM=
 		</data>
 		<key>Frameworks/path_provider.framework/Info.plist</key>
 		<data>
@@ -302,7 +302,7 @@
 		</data>
 		<key>Frameworks/path_provider.framework/path_provider</key>
 		<data>
-		czfN/agPCUEgrExAiBdmWnU3Oug=
+		pmqBPK67lj5M2kGfP3aH1YxwnoM=
 		</data>
 		<key>Frameworks/shared_preferences.framework/Info.plist</key>
 		<data>
@@ -314,7 +314,7 @@
 		</data>
 		<key>Frameworks/shared_preferences.framework/shared_preferences</key>
 		<data>
-		JC3uIPweCR3pVskT9IU569Vx0ds=
+		8dV/GWEV/AytsV/dn9gxx1GsfU4=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -661,11 +661,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YrXxk+v4X7o3OPV+QSgISLs1tkQ=
+			ju6mo+gC5LDGqQbbhCBOT1S8NZY=
 			</data>
 			<key>hash2</key>
 			<data>
-			KsJkbtGOMeJ+gdGt3xsrgHJfqjg8KMR9YA+ifR+rvBY=
+			KtX1o2aAvsgqIfRlq1K75G99Mnu2qKD5+IJncR2zlCM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -683,11 +683,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uMu2KyYfm9BWvB2bg0ABtT9RsVM=
+			5kKUDk13u9HlKmpbt/K5eWoC0qU=
 			</data>
 			<key>hash2</key>
 			<data>
-			N2jOUt3TrKoBzj8bl338JE4Mt9TsHLQYlhTz6M8olQY=
+			WYKqX2DrF4Cx4DVczVEksa6Wbj8CyHQ7zVWRhf/DTaY=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
@@ -749,11 +749,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			F+lGFyDCUUjK/15J44C4rX+5wkA=
+			vqnJ7ejZ+co2MQZsiHI6MSsiYec=
 			</data>
 			<key>hash2</key>
 			<data>
-			R2+WQeV/hEvJYu2UhfAUUbTSlMfhnzeRacH2itXjJ7g=
+			HOD7u2CY/ZM0FcVtOgaaz/CkZH66rfKYwN0vveJydqw=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -936,11 +936,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zYIqMEIniLFx3CoKQpBKymo3I3k=
+			vNBB8m7MUygUlbhRXHfUmFxUqbA=
 			</data>
 			<key>hash2</key>
 			<data>
-			CRBSW1aa/8udupcNGNEQpLi46oTlNObs3jP3cangB3s=
+			fcxU/N7lVd51U/ofxBG+bLcDZ62dL8o388yMNQHupqk=
 			</data>
 		</dict>
 		<key>Frameworks/fluttertoast.framework/Info.plist</key>
@@ -969,11 +969,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TsMdR+aO25kEknlimzyiE1TOVhA=
+			4Z/7hUUKFiWgbC1s95p4gB2+qDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			bNZXS9WxFRt9qLKmBPTj9GuXzo0F6Gr+99cK0IECS4k=
+			ZIBCII0dPi86ArVasDltos+3JpqFGu/gRIZek/6Zuco=
 			</data>
 		</dict>
 		<key>Frameworks/geolocator.framework/Info.plist</key>
@@ -1002,11 +1002,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jaZh9Zih9Zhb5MtZMaaYRYqjQ5o=
+			fcab3XuekS2FGC2/+o7pPwZ6j5U=
 			</data>
 			<key>hash2</key>
 			<data>
-			JM0Pesr23PpKBIpr3fVqlngnaoIz2zOsBPRfj2pKnv0=
+			0kCnBy2px8DTmGpBwkVX1V0yyBsurCMjreCzAnW2v/g=
 			</data>
 		</dict>
 		<key>Frameworks/libswiftCore.dylib</key>
@@ -1112,11 +1112,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NlRZ7no7IhGOnfSR2QZWm+mwvF4=
+			U7XdzeqsQSxkYK1vZ2ehh/+I3RM=
 			</data>
 			<key>hash2</key>
 			<data>
-			GVkHiUjz+XKrly6ytXmdFU2gBpB80JpfKMMqp2Df76Y=
+			NoRbvwCScjM/KwAul+kDDgJ/Nl7EBS7T94kWi2lZKM4=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider.framework/Info.plist</key>
@@ -1145,11 +1145,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			czfN/agPCUEgrExAiBdmWnU3Oug=
+			pmqBPK67lj5M2kGfP3aH1YxwnoM=
 			</data>
 			<key>hash2</key>
 			<data>
-			NPewh9C4NbAWRQy3fsJP12LmPVcvwRXFHc26SoCkaVo=
+			f0eWAnURZV0KOr2nemG0O9GICz+hC358fMd96jGoBN0=
 			</data>
 		</dict>
 		<key>Frameworks/shared_preferences.framework/Info.plist</key>
@@ -1178,11 +1178,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JC3uIPweCR3pVskT9IU569Vx0ds=
+			8dV/GWEV/AytsV/dn9gxx1GsfU4=
 			</data>
 			<key>hash2</key>
 			<data>
-			qPHmXUCr8KQQH28vYuEef6T0Y2egc9pUMHIdxvgg/tw=
+			V205Oa7/JJM1v1luAAIDi68ZNOpsWLQBujHZwre8TuQ=
 			</data>
 		</dict>
 	</dict>
