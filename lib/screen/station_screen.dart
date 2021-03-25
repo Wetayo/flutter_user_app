@@ -119,7 +119,7 @@ class _StationScreenState extends State<StationScreen> {
                   Query(
                     options: QueryOptions(
                       document: gql("""query{
-            getStationAndRoutes(gpsY: 37.3889 gpsX: 126.7352 distance: 0.3){
+            getStations(gpsY: 37.3889 gpsX: 126.7352 distance: 0.3){
               stationId
               stationName
               mobileNumber
@@ -147,22 +147,21 @@ class _StationScreenState extends State<StationScreen> {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      if (result.data["getStationAndRoutes"].length <= 0) {
+                      if (result.data["getStations"].length <= 0) {
                         return Center(
                           child: Text("가까운 정류소가 없어요ㅠㅠ"),
                         );
                       } else {
                         _isLoading = result.isLoading;
                         print(result.data.toString());
-                        name = result.data["getStationAndRoutes"][0]
-                                ["stationName"]
+                        name = result.data["getStations"][0]["stationName"]
                             .toString();
-                        mobileNum = result.data["getStationAndRoutes"][0]
+                        mobileNum = result.data["getStations"][0]
                                 ["mobileNumber"]
                             .toString();
                         print(name);
                         print(
-                            'routeName >> ${result.data['getStationAndRoutes'][0]['routes'][1]}');
+                            'routeName >> ${result.data['getStations'][0]['routes'][1]}');
                         return _buildList(context, result);
                       }
                     },
@@ -178,9 +177,9 @@ class _StationScreenState extends State<StationScreen> {
     return Expanded(
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: result.data["getStationAndRoutes"].length,
+            itemCount: result.data["getStations"].length,
             itemBuilder: (context, index) {
-              Map item = result.data["getStationAndRoutes"][index];
+              Map item = result.data["getStations"][index];
               return Card(
                 shape: StadiumBorder(),
                 elevation: 20,
