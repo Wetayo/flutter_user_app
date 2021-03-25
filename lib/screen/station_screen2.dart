@@ -128,7 +128,7 @@ class _StationScreenState extends State<StationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomPadding: false,
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : SafeArea(
