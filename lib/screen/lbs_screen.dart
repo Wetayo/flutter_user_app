@@ -126,7 +126,7 @@ class _LbsScreenState extends State<LbsScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomPadding: false,
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : Column(
