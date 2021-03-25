@@ -13,8 +13,8 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _text = '현재 위치 : 모름';
   //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
-  String _x = '126.7352';
-  String _y = '37.3889';
+  String _x = '0';
+  String _y = '0';
 
   bool _isLoading = false;
 
@@ -72,54 +72,48 @@ class _StationScreenState extends State<StationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment(-0.7, 0),
-                    child: Text(
-                      '나와 가장 가까운 정류소',
-                      style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
-                    width: double.infinity,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      child: Text(
-                        '\'${name}\'\n정류소 선택하기',
-                        style: TextStyle(
-                            fontSize: 35.0, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      color: Color(0xff184C88),
-                      //onPressed: _refresh,
-                      onPressed: () => onClickMovie(context, mobileNum),
-                      padding: const EdgeInsets.all(20.0),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment(-0.5, 0),
-                    child: Text(
-                      '내 주변의 가장 가까운 정류소',
-                      style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Query(
-                    options: QueryOptions(
-                        document: gql(
-                            """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment(-0.7, 0),
+            child: Text(
+              '나와 가장 가까운 정류소',
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                top: 10.0, left: 20.0, right: 20.0, bottom: 30.0),
+            width: double.infinity,
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+              child: Text(
+                '\'${name}\'\n정류소 선택하기',
+                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              color: Color(0xff184C88),
+              //onPressed: _refresh,
+              onPressed: () => onClickMovie(context, mobileNum),
+              padding: const EdgeInsets.all(20.0),
+            ),
+          ),
+          Container(
+            alignment: Alignment(-0.5, 0),
+            child: Text(
+              '내 주변의 가장 가까운 정류소',
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Query(
+            options: QueryOptions(
+                document: gql(
+                    """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
             getStations(gpsY: \$gpsY gpsX: \$gpsX distance: \$distance){
               stationId
               stationName
@@ -131,45 +125,41 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-                        variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
-                    builder: (QueryResult result,
-                        {VoidCallback refetch, FetchMore fetchMore}) {
-                      if (result.exception != null) {
-                        return Center(
-                            child: Text(
-                                "에러가 발생했습니다.\n${result.exception.toString()}"));
-                      }
-                      if (result.isLoading) {
-                        setState(() {
-                          _isLoading = result.isLoading;
-                        });
+                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
+            builder: (QueryResult result,
+                {VoidCallback refetch, FetchMore fetchMore}) {
+              if (result.exception != null) {
+                return Center(
+                    child: Text("에러가 발생했습니다.\n${result.exception.toString()}"));
+              }
+              if (result.isLoading) {
+                // setState(() {
+                //   _isLoading = result.isLoading;
+                // });
 
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (result.data["getStations"].length <= 0) {
-                        return Center(
-                          child: Text("가까운 정류소가 없어요ㅠㅠ"),
-                        );
-                      } else {
-                        _isLoading = result.isLoading;
-                        print(result.data.toString());
-                        name = result.data["getStations"][0]["stationName"]
-                            .toString();
-                        mobileNum = result.data["getStations"][0]
-                                ["mobileNumber"]
-                            .toString();
-                        print(name);
-                        print(
-                            'routeName >> ${result.data['getStations'][0]['routes'][1]}');
-                        return _buildList(context, result);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (result.data["getStations"].length <= 0) {
+                return Center(
+                  child: Text("가까운 정류소가 없어요ㅠㅠ"),
+                );
+              } else {
+                _isLoading = result.isLoading;
+                print(result.data.toString());
+                name = result.data["getStations"][0]["stationName"].toString();
+                mobileNum =
+                    result.data["getStations"][0]["mobileNumber"].toString();
+                print(name);
+                print(
+                    'routeName >> ${result.data['getStations'][0]['routes'][1]}');
+                return _buildList(context, result);
+              }
+            },
+          ),
+        ],
+      ),
     );
     //rebuildAllChildren(context);
   }
