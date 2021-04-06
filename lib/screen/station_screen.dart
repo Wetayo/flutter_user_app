@@ -125,7 +125,7 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
+                variables: {'gpsY': _x, 'gpsX': _y, 'distance': 0.4}),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
               if (result.exception != null) {

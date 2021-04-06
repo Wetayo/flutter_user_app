@@ -9,6 +9,7 @@ import 'package:wetayo_app/screen/mutationTest.dart';
 import 'package:wetayo_app/screen/station_screen.dart';
 import 'package:wetayo_app/screen/test.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
+import 'package:wetayo_app/beacon/beacon_receive.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               //
               GraphQLProvider(
                 client: graphqlService.client,
-                child: MutationTest(),
+                child: BeaconReceive(),
               ),
               GraphQLProvider(
                 client: graphqlService.client,
