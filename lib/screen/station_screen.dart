@@ -1,3 +1,4 @@
+import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:wetayo_app/screen/detail_page.dart';
@@ -36,6 +37,7 @@ class _StationScreenState extends State<StationScreen> {
   @override
   void initState() {
     super.initState();
+    BeaconsPlugin.stopMonitoring;
     _checkPermissions();
     _refresh();
   }

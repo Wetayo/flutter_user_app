@@ -11,7 +11,8 @@ import 'package:wetayo_app/screen/test.dart';
 import 'package:wetayo_app/widget/bottom_bar.dart';
 import 'package:wetayo_app/beacon/beacon_receive.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

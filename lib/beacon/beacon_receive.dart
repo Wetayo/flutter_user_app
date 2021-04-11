@@ -3,18 +3,20 @@ import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:wetayo_app/beacon/beacon_send.dart';
-import 'package:wetayo_app/screen/mutationTest.dart';
 import 'beacon_info.dart';
 import 'dart:convert';
 
 class BeaconReceive extends StatefulWidget {
+  // int tabBarIndex;
+
+  // BeaconReceive({@required this.tabBarIndex});
   @override
   _BeaconReceiveState createState() => _BeaconReceiveState();
 }
 
 class _BeaconReceiveState extends State<BeaconReceive> {
-  var beacon_info = new BeaconInfo();
-
+  var beacon_Info = new BeaconInfo();
+  bool beaconRunning = true;
   final StreamController<String> beaconEventsController =
       StreamController<String>.broadcast();
 
@@ -22,8 +24,6 @@ class _BeaconReceiveState extends State<BeaconReceive> {
   void initState() {
     super.initState();
     initPlatformState();
-    _beaconReceive();
-    //_insertTransaction(beacon_info);
   }
 
   @override
@@ -48,10 +48,10 @@ class _BeaconReceiveState extends State<BeaconReceive> {
         (data) {
           if (data.isNotEmpty) {
             setState(() {
-              beacon_info.beaconResult = _setDistance(data);
-              beacon_info.nrMessaggesReceived++;
+              beacon_Info.beaconResult = _setDistance(data);
+              beacon_Info.nrMessaggesReceived++;
             });
-            print("Beacons DataReceived: " + beacon_info.beaconResult);
+            print("Beacons DataReceived: " + beacon_Info.beaconResult);
           }
         },
         onDone: () {},
@@ -62,61 +62,39 @@ class _BeaconReceiveState extends State<BeaconReceive> {
     //Send 'true' to run in background
     await BeaconsPlugin.runInBackground(true);
 
-    if (Platform.isAndroid) {
-      BeaconsPlugin.channel.setMethodCallHandler((call) async {
-        if (call.method == 'scannerReady') {
-          await BeaconsPlugin.startMonitoring;
-        }
-      });
-    } else if (Platform.isIOS) {
-      await BeaconsPlugin.startMonitoring;
-    }
-
     if (!mounted) return;
   }
 
   String _setDistance(String data) {
     Map<String, dynamic> tmp = jsonDecode(data);
-    if (tmp['uuid'] == beacon_info.uuid) {
-      if (beacon_info.beaconResult == "") {
-        beacon_info.minor = int.parse(tmp['minor']);
-        _sendMinor(tmp['minor']);
+    if (tmp['uuid'] == beacon_Info.uuid) {
+      if (beacon_Info.beaconResult == "") {
+        beacon_Info.minor = int.parse(tmp['minor']);
         return data;
       }
-      Map<String, dynamic> original = jsonDecode(beacon_info.beaconResult);
+      Map<String, dynamic> original = jsonDecode(beacon_Info.beaconResult);
       if (tmp['minor'] != original['minor']) {
         if (double.parse(tmp['distance']) <
             double.parse(original['distance'])) {
-          beacon_info.minor = int.parse(tmp['minor']);
-          _sendMinor(tmp['minor']);
+          beacon_Info.minor = int.parse(tmp['minor']);
           return data;
         }
       }
     }
-    return beacon_info.beaconResult;
+    return beacon_Info.beaconResult;
   }
 
-  Future _beaconReceive() async {
-    await BeaconsPlugin.startMonitoring;
+  Future<int> _beaconReceive(BuildContext context) async {
+    if (DefaultTabController.of(context).index == 1) {
+      await BeaconsPlugin.startMonitoring;
+    }
   }
 
-  Future _sendMinor(String minor) async {
-    await Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BeaconSend(minor: beacon_info.minor.toString())));
-  }
-
-/*
-  Future<int> _insertTransaction(dynamic object) async {
-    var _setBeaconMinor = new setBeaconMinor();
-    //_setBeaconMinor.fromMap(<String, dynamic>{
-    //   "minor": object.minor,
-    //  });
-    _setBeaconMinor.toMap(object);
-    print("success toMap " + object.toString());
-  }
-*/
   @override
   Widget build(BuildContext context) {
-    return MutationTest();
+    _beaconReceive(context);
+    return BeaconSend(
+      minor: beacon_Info.minor,
+    );
   }
 }

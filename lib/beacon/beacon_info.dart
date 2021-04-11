@@ -14,20 +14,3 @@ class BeaconInfo {
   int manufacturerId = 0x0118;
   List<int> extraData = [100];
 }
-
-/*
-class setBeaconMinor {
-  BeaconInfo fromMap(Map<String, dynamic> info) {
-    BeaconInfo beaconInfo = BeaconInfo();
-    print("info[minor] is " + info["minor"]);
-    beaconInfo.minor = int.parse(info["minor"]);
-    return beaconInfo;
-  }
-
-  Map<String, dynamic> toMap(BeaconInfo object) {
-    return <String, dynamic>{
-      "minor": object.minor,
-    };
-  }
-}
-*/
