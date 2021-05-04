@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:wetayo_app/beacon/beacon_send.dart';
 
 class MutationTest extends StatefulWidget {
   _MutationTest createState() => _MutationTest();
@@ -143,6 +144,9 @@ class _MutationTest extends State<MutationTest> {
                 );
               },
             ),
+            BeaconSend(
+              minor: null,
+            )
           ],
         ),
       ),

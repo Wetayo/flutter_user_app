@@ -1,3 +1,4 @@
+import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    BeaconsPlugin.stopMonitoring;
   }
 
   @override

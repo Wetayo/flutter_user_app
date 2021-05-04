@@ -8,6 +8,23 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.1"
+<<<<<<< HEAD
+=======
+  beacon_broadcast:
+    dependency: "direct main"
+    description:
+      name: beacon_broadcast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
+  beacons_plugin:
+    dependency: "direct main"
+    description:
+      name: beacons_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.20"
+>>>>>>> ff3a1e3f24a671bb4b8d415370722e29ba121319
   boolean_selector:
     dependency: transitive
     description:
@@ -548,4 +565,8 @@ packages:
     version: "4.4.0"
 sdks:
   dart: ">=2.10.0-110 <2.11.0"
+<<<<<<< HEAD
   flutter: ">=1.12.13+hotfix.5 <2.0.0"
+=======
+  flutter: ">=1.20.0 <2.0.0"
+>>>>>>> ff3a1e3f24a671bb4b8d415370722e29ba121319
