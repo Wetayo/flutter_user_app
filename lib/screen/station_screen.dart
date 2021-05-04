@@ -13,8 +13,8 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _text = '현재 위치 : 모름';
   //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
-  String _x = '0';
-  String _y = '0';
+  String _x = '126.7309';
+  String _y = '37.3412';
 
   bool _isLoading = false;
 
@@ -125,12 +125,13 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
+                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.8}),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
               if (result.exception != null) {
                 return Center(
-                    child: Text("에러가 발생했습니다.\n${result.exception.toString()}"));
+                    child:
+                        Text("에러가 발생했습니다!!\n${result.exception.toString()}"));
               }
               if (result.isLoading) {
                 // setState(() {
