@@ -1,3 +1,4 @@
+import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:wetayo_app/screen/detail_page.dart';
@@ -36,6 +37,7 @@ class _StationScreenState extends State<StationScreen> {
   @override
   void initState() {
     super.initState();
+    BeaconsPlugin.stopMonitoring;
     _checkPermissions();
     _refresh();
   }
@@ -125,7 +127,7 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.3}),
+                variables: {'gpsY': _x, 'gpsX': _y, 'distance': 0.4}),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
               if (result.exception != null) {
