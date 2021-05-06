@@ -127,17 +127,13 @@ class _StationScreenState extends State<StationScreen> {
                 }
               }
               }"""),
-<<<<<<< HEAD
-                variables: {'gpsY': _y, 'gpsX': _x, 'distance': 0.8}),
-=======
-                variables: {'gpsY': _x, 'gpsX': _y, 'distance': 0.4}),
->>>>>>> ff3a1e3f24a671bb4b8d415370722e29ba121319
+                variables: {'gpsY': _x, 'gpsX': _y, 'distance': 0.8}),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
               if (result.exception != null) {
                 return Center(
                     child:
-                        Text("에러가 발생했습니다!!\n${result.exception.toString()}"));
+                        Text("에러가 발생했습니다!!!\n${result.exception.toString()}"));
               }
               if (result.isLoading) {
                 // setState(() {
@@ -192,17 +188,17 @@ class _StationScreenState extends State<StationScreen> {
                     title: Text(
                       item["stationName"].toString(),
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Row(
                       children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                        ),
+                        // Icon(
+                        //   Icons.star,
+                        //   color: Colors.yellow,
+                        // ),
                         Text(
                           item["mobileNumber".toString()],
-                          style: TextStyle(color: Colors.yellow),
+                          style: TextStyle(color: Colors.yellow, fontSize: 14),
                         )
                       ],
                     ),

@@ -1,12 +1,18 @@
 PODS:
+  - beacon_broadcast (0.0.1):
+    - Flutter
+  - beacons_plugin (0.0.1):
+    - Flutter
   - connectivity (0.0.1):
     - Flutter
     - Reachability
   - Flutter (1.0.0)
+  - flutter_config (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
-  - geolocator (6.1.9):
+  - geolocator (6.2.0):
     - Flutter
   - location (0.0.1):
     - Flutter
@@ -20,8 +26,11 @@ PODS:
   - Toast (4.0.0)
 
 DEPENDENCIES:
+  - beacon_broadcast (from `.symlinks/plugins/beacon_broadcast/ios`)
+  - beacons_plugin (from `.symlinks/plugins/beacons_plugin/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - Flutter (from `Flutter`)
+  - flutter_config (from `.symlinks/plugins/flutter_config/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - location (from `.symlinks/plugins/location/ios`)
@@ -35,10 +44,16 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
+  beacon_broadcast:
+    :path: ".symlinks/plugins/beacon_broadcast/ios"
+  beacons_plugin:
+    :path: ".symlinks/plugins/beacons_plugin/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   Flutter:
     :path: Flutter
+  flutter_config:
+    :path: ".symlinks/plugins/flutter_config/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   geolocator:
@@ -53,10 +68,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
+  beacon_broadcast: 2c2562111f7b7e0f1ab59487f6bc805805e3c9f3
+  beacons_plugin: 451bca1eea362d21793d61d58fa26d494cf19718
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_config: 2226c1df19c78fe34a05eb7f1363445f18e76fc1
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
-  geolocator: 057a0c63a43e9c5296d8ad845a3ac8e6df23d899
+  geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: 8278954f2382902f63f00dd8828769c0bd6d511b

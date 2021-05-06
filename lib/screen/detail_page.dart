@@ -201,7 +201,7 @@ class _DetailPage extends State<DetailPage> {
                           child: CarouselSlider.builder(
                         itemCount: _data.length,
                         options: CarouselOptions(
-                            aspectRatio: 1.0,
+                            aspectRatio: 1.2,
                             enlargeCenterPage: true,
                             scrollDirection: Axis.vertical,
                             autoPlay: false),
@@ -390,6 +390,6 @@ String MutationError(String errorCode) {
   if (errorCode == '430') {
     return "이미 승차예약이 있어요";
   } else {
-    return "다른 에러 발생!!";
+    return "접근이 거부되었습니다.";
   }
 }

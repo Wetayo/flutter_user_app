@@ -141,7 +141,7 @@ class _BeaconSendState extends State<BeaconSend> {
                         .setExtraData(beacon_Info.extraData)
                         .start();
 
-                    Future.delayed(const Duration(seconds: 15), () {
+                    Future.delayed(const Duration(seconds: 3), () {
                       setState(() {
                         print("beacon send to stop");
                         beaconBroadcast.stop();

@@ -38,11 +38,9 @@ class _MyAppState extends State<MyApp> {
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              //
-              GraphQLProvider(
-                client: graphqlService.client,
-                child: BeaconReceive(),
-              ),
+
+              BeaconReceive(),
+              //Container(),
               GraphQLProvider(
                 client: graphqlService.client,
                 child: StationScreen(),
