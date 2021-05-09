@@ -11,7 +11,7 @@
 .svn/
 
 # Flutter .env
-*.env*
+.env*
 
 # IntelliJ related
 *.iml
