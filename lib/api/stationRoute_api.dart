@@ -1,6 +1,7 @@
-const String _urlPrefix =
-    'http://openapi.gbis.go.kr/ws/rest/busstationservice/route?serviceKey=';
-const String _serviceKey = '1122334455';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+
+String _urlPrefix = DotEnv.env['STATIONROUTE_URL'];
+String _serviceKey = DotEnv.env['STATIONROUTE_KEY'];
 const String _idPrefix = '&stationId=';
 const String _defaultid = '123456789';
 

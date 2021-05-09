@@ -116,7 +116,7 @@ class _DetailPage extends State<DetailPage> {
 //////////////////////////////////////////
 
   _getRoutesList() async {
-    //setState(() => _isLoading = true);
+    setState(() => _isLoading = true);
 
     //String station = _stationController.text;
     print('widget item >> ${widget.item}');
@@ -165,7 +165,7 @@ class _DetailPage extends State<DetailPage> {
     setState(() {
       _routesData = list;
       print('routeTest >>>> $_routesData');
-      //_isLoading = false;
+      _isLoading = false;
     });
   }
 

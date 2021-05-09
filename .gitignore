@@ -10,6 +10,9 @@
 .history
 .svn/
 
+# Flutter .env
+*.env*
+
 # IntelliJ related
 *.iml
 *.ipr

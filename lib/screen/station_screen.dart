@@ -22,7 +22,7 @@ class _StationScreenState extends State<StationScreen> {
   String name;
   String mobileNum;
 
-  void onClickMovie(BuildContext context, String _item) {
+  void onClickStation(BuildContext context, String _item) {
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -100,7 +100,7 @@ class _StationScreenState extends State<StationScreen> {
               ),
               color: Color(0xff184C88),
               //onPressed: _refresh,
-              onPressed: () => onClickMovie(context, mobileNum),
+              onPressed: () => onClickStation(context, mobileNum),
               padding: const EdgeInsets.all(20.0),
             ),
           ),
@@ -182,7 +182,7 @@ class _StationScreenState extends State<StationScreen> {
                   margin: EdgeInsets.all(10),
                   child: ListTile(
                     onTap: () =>
-                        onClickMovie(context, item['stationId'].toString()),
+                        onClickStation(context, item['stationId'].toString()),
                     dense: true,
                     //leading: Image.network(item["medium_cover_image"]),
                     title: Text(
