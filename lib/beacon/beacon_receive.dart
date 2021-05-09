@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:wetayo_app/beacon/beacon_send.dart';
 import 'beacon_info.dart';
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 class BeaconReceive extends StatefulWidget {
   // int tabBarIndex;
@@ -41,8 +42,7 @@ class _BeaconReceiveState extends State<BeaconReceive> {
 
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
-    await BeaconsPlugin.addRegion(
-        "iBeacon", "77707f98-a4da-451e-859f-5a29fdb8cd15");
+    await BeaconsPlugin.addRegion("iBeacon", DotEnv.env['BEACON_UUID']);
 
     beaconEventsController.stream.listen(
         (data) {

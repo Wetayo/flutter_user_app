@@ -1,10 +1,11 @@
 import 'package:beacon_broadcast/beacon_broadcast.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 class BeaconInfo {
   String beaconResult = "";
   int nrMessaggesReceived = 0;
 
-  String uuid = "77707f98-a4da-451e-859f-5a29fdb8cd15";
+  String uuid = DotEnv.env['BEACON_UUID'];
   int major = 0xffff;
   int minor = 0;
   int transmissionPower = -59;
