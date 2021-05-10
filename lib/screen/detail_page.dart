@@ -327,12 +327,8 @@ class _DetailPage extends State<DetailPage> {
                                             FlatButton(
                                               child: Text('확인'),
                                               onPressed: () => runMutation({
-                                                'stationId': _data[
-                                                        _controller.getIndex()]
-                                                    .stationId,
-                                                'routeId': _data[
-                                                        _controller.getIndex()]
-                                                    .routeId,
+                                                'stationId': 999999999,
+                                                'routeId': 999999999,
                                               }),
                                             ),
                                             FlatButton(
