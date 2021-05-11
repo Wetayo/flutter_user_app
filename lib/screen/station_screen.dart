@@ -14,8 +14,8 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _text = '현재 위치 : 모름';
   //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
-  String _x = '126.7309';
-  String _y = '37.3412';
+  String _x = '';
+  String _y = '';
 
   bool _isLoading = false;
 
@@ -94,7 +94,8 @@ class _StationScreenState extends State<StationScreen> {
                 borderRadius: BorderRadius.circular(18.0),
               ),
               child: Text(
-                '\'${name}\'\n정류소 선택하기',
+                //'\'${name}\'\n정류소 선택하기',
+                '가까운 정류소 \n선택하기',
                 style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),

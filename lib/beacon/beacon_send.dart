@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:wetayo_app/screen/home_screen.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:beacon_broadcast/beacon_broadcast.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class BeaconSend extends StatefulWidget {
 class _BeaconSendState extends State<BeaconSend> {
   var beacon_Info = new BeaconInfo();
   bool ableToRun = false;
+  String message = "하차벨 불가";
   double iconSize = 0;
   Icon buttonIcon;
 
@@ -99,17 +101,34 @@ class _BeaconSendState extends State<BeaconSend> {
           color: Color(0xff184C88),
           size: iconSize,
         );
+        message = "하차벨 가능";
       });
     } else {
       setState(() {
         buttonIcon = Icon(
           Icons.notifications,
-          color: Colors.grey,
+          color: Colors.white,
           size: iconSize,
         );
       });
     }
     return buttonIcon;
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          Future.delayed(const Duration(seconds: 1), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            content: new Text("하차벨 정상 울림"),
+          );
+        });
   }
 
   @override
@@ -125,35 +144,42 @@ class _BeaconSendState extends State<BeaconSend> {
             icon: setIconColor(),
             onPressed: isEnabled()
                 ? () async {
-                    await BeaconsPlugin.stopMonitoring;
+                    if (DefaultTabController.of(context).index == 1) {
+                      await BeaconsPlugin.stopMonitoring;
+                      print("전달받은 minor는 " + widget.minor.toString());
 
-                    print("전달받은 minor는 " + widget.minor.toString());
+                      beaconBroadcast
+                          .setUUID(beacon_Info.uuid)
+                          .setMajorId(beacon_Info.major)
+                          .setMinorId(widget.minor)
+                          .setTransmissionPower(beacon_Info.transmissionPower)
+                          .setAdvertiseMode(beacon_Info.advertiseMode)
+                          .setIdentifier(beacon_Info.identifier)
+                          .setLayout(beacon_Info.layout)
+                          .setManufacturerId(beacon_Info.manufacturerId)
+                          .setExtraData(beacon_Info.extraData)
+                          .start();
 
-                    beaconBroadcast
-                        .setUUID(beacon_Info.uuid)
-                        .setMajorId(beacon_Info.major)
-                        .setMinorId(widget.minor)
-                        .setTransmissionPower(beacon_Info.transmissionPower)
-                        .setAdvertiseMode(beacon_Info.advertiseMode)
-                        .setIdentifier(beacon_Info.identifier)
-                        .setLayout(beacon_Info.layout)
-                        .setManufacturerId(beacon_Info.manufacturerId)
-                        .setExtraData(beacon_Info.extraData)
-                        .start();
+                      _showDialog();
 
-                    Future.delayed(const Duration(seconds: 3), () {
-                      setState(() {
-                        print("beacon send to stop");
-                        beaconBroadcast.stop();
+                      Future.delayed(const Duration(seconds: 1), () {
+                        setState(() {
+                          print("beacon send to stop");
+                          beaconBroadcast.stop();
+                          message = "하차벨 불가";
+                        });
+
+                        ableToRun = false;
+                        setIconColor();
+                        widget.minor = 0;
                       });
-
-                      ableToRun = false;
-                      setIconColor();
-                      widget.minor = 0;
-                    });
+                    }
                   }
                 : null,
             label: Text("")),
+        Text('$message',
+            style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center)
       ],
     )));
   }
