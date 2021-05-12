@@ -6,6 +6,7 @@ import 'package:beacon_broadcast/beacon_broadcast.dart';
 import 'package:flutter/material.dart';
 import 'beacon_info.dart';
 import 'beacon_receive.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 class BeaconSend extends StatefulWidget {
   int minor;
@@ -18,7 +19,7 @@ class BeaconSend extends StatefulWidget {
 class _BeaconSendState extends State<BeaconSend> {
   var beacon_Info = new BeaconInfo();
   bool ableToRun = false;
-  String message = "하차벨 불가";
+  String message = "파란색이 되면 눌러주세요!";
   double iconSize = 0;
   Icon buttonIcon;
 
@@ -101,7 +102,7 @@ class _BeaconSendState extends State<BeaconSend> {
           color: Color(0xff184C88),
           size: iconSize,
         );
-        message = "하차벨 가능";
+        // message = "하차벨 가능";
       });
     } else {
       setState(() {
@@ -120,14 +121,37 @@ class _BeaconSendState extends State<BeaconSend> {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          Future.delayed(const Duration(seconds: 1), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pop();
           });
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            content: new Text("하차벨 정상 울림"),
-          );
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              content: SizedBox(
+                  height: 180,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: new Text(
+                          "하차벨 정상 울림",
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 40),
+                      CircularCountDownTimer(
+                          width: 80,
+                          height: 80,
+                          duration: 3,
+                          fillColor: Color(0xff184C88),
+                          color: Colors.white,
+                          isReverse: true,
+                          isTimerTextShown: false,
+                          //isReverseAnimation: true,
+                          textStyle: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold))
+                    ],
+                  )));
         });
   }
 
@@ -162,11 +186,11 @@ class _BeaconSendState extends State<BeaconSend> {
 
                       _showDialog();
 
-                      Future.delayed(const Duration(seconds: 1), () {
+                      Future.delayed(const Duration(seconds: 3), () {
                         setState(() {
                           print("beacon send to stop");
                           beaconBroadcast.stop();
-                          message = "하차벨 불가";
+                          //  message = "하차벨 불가";
                         });
 
                         ableToRun = false;

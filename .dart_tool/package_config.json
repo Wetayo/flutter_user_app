@@ -44,6 +44,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "circular_countdown_timer",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/circular_countdown_timer-0.0.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0",
       "packageUri": "lib/",
@@ -506,7 +512,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-11T12:50:13.336319Z",
+  "generated": "2021-05-12T11:29:45.269188Z",
   "generator": "pub",
   "generatorVersion": "2.14.0-74.0.dev"
 }

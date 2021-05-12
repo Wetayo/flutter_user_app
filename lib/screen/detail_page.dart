@@ -311,15 +311,8 @@ class _DetailPage extends State<DetailPage> {
                                           content: SingleChildScrollView(
                                             child: ListBody(
                                               children: <Widget>[
-                                                Text('Test'),
                                                 Text(
                                                     '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?'),
-                                                Text(_data[
-                                                        _controller.getIndex()]
-                                                    .stationId),
-                                                Text(_data[
-                                                        _controller.getIndex()]
-                                                    .routeId)
                                               ],
                                             ),
                                           ),
