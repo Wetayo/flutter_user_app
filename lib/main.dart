@@ -29,6 +29,13 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Colors.black,
         accentColor: Colors.white,
       ),
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{
+        //'/': (context) => new MyApp(),
+        '/home': (context) => new HomeScreen(),
+        '/beacon': (context) => new BeaconReceive(),
+        '/station': (context) => new StationScreen()
+      },
       home: DefaultTabController(
         length: 3,
         child: Scaffold(

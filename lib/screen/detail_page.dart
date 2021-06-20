@@ -29,13 +29,21 @@ class _DetailPage extends State<DetailPage> {
   bool _isLoading = false;
   String routeName = '조회를 실패했습니다.';
 
+  int checkError = 0;
+
   @override
   void initState() {
     super.initState();
     _getRoutesList();
     _getArrivalList();
+    setState(() {
+      checkError = 0;
+    });
   }
 
+  ///////////////////////////////////////////////////
+  /*          routeId를 비교해 노선 정보 합치기          */
+  ///////////////////////////////////////////////////
   String matchRoute(String _routeId) {
     for (var item in _routesData) {
       //print('plz>>${item.routeId}, prefix>>$_routeId');
@@ -48,6 +56,9 @@ class _DetailPage extends State<DetailPage> {
     return 'error';
   }
 
+  ///////////////////////////////////////////////////
+  /*               도착버스 조회 함수                  */
+  ///////////////////////////////////////////////////
   _getArrivalList() async {
     String result = 'null';
     setState(() => _isLoading = true);
@@ -108,13 +119,15 @@ class _DetailPage extends State<DetailPage> {
     setState(() {
       _data = list;
       _isLoading = false;
+
       //matchRoute();
       print(_data[0].routeName);
     });
   }
 
-//////////////////////////////////////////
-
+  ///////////////////////////////////////////////////
+  /*                노선 리스트 조회                   */
+  ///////////////////////////////////////////////////
   _getRoutesList() async {
     setState(() => _isLoading = true);
 
@@ -169,6 +182,9 @@ class _DetailPage extends State<DetailPage> {
     });
   }
 
+  ///////////////////////////////////////////////////
+  /*                도착버스 Count                   */
+  ///////////////////////////////////////////////////
   Widget countArriverBus(int index) {
     if (_data.length <= 0) {
       return Text('도착 정보가 없어요ㅠㅠ');
@@ -207,29 +223,31 @@ class _DetailPage extends State<DetailPage> {
                             autoPlay: false),
                         carouselController: _controller,
                         itemBuilder: (context, index, idx) {
-                          return Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                //countArriverBus(index),
-                                if (_data.length > 0)
-                                  Text(
-                                    _data[index].routeName,
-                                    style: TextStyle(
-                                        fontSize: 65.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                if (_data.length > 0)
-                                  Text(
-                                    '도착까지 ${_data[index].predictTime1} 분',
-                                    style: TextStyle(
-                                        fontSize: 50.0,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                else
-                                  Text('도착 버스 정보가 없습니다.')
-                              ],
+                          return GestureDetector(
+                            child: Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  //countArriverBus(index),
+                                  if (_data.length > 0)
+                                    Text(
+                                      _data[index].routeName,
+                                      style: TextStyle(
+                                          fontSize: 65.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  if (_data.length > 0)
+                                    Text(
+                                      '도착까지 ${_data[index].predictTime1} 분',
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  else
+                                    Text('도착 버스 정보가 없습니다.')
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -283,8 +301,12 @@ class _DetailPage extends State<DetailPage> {
                           update: (GraphQLDataProxy cache, QueryResult result) {
                             return cache;
                           },
-                          onError: (OperationException error) =>
-                              _simpleAlert(context, error),
+                          onError: (OperationException error) {
+                            setState(() {
+                              checkError = 1;
+                            });
+                            _simpleAlert(context, error);
+                          },
                           onCompleted: (dynamic resultData) =>
                               Navigator.of(context).pop(),
                         ),
@@ -302,6 +324,10 @@ class _DetailPage extends State<DetailPage> {
                                   borderRadius: BorderRadius.circular(18.0),
                                 ),
                                 onPressed: () {
+                                  if (_data[_controller.getIndex()].routeName ==
+                                      null) {
+                                    print('error');
+                                  }
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -318,12 +344,29 @@ class _DetailPage extends State<DetailPage> {
                                           ),
                                           actions: <Widget>[
                                             FlatButton(
-                                              child: Text('확인'),
-                                              onPressed: () => runMutation({
-                                                'stationId': 999999999,
-                                                'routeId': 999999999,
-                                              }),
-                                            ),
+                                                child: Text('확인'),
+                                                onPressed: () => {
+                                                      runMutation(
+                                                        {
+                                                          'stationId':
+                                                              999999999,
+                                                          'routeId': 999999999,
+                                                        },
+                                                      ),
+                                                      if (checkError == 1)
+                                                        {
+                                                          Navigator.popUntil(
+                                                              context,
+                                                              ModalRoute
+                                                                  .withName(
+                                                                      '/'))
+                                                        }
+                                                      else
+                                                        {
+                                                          // Navigator.of(context)
+                                                          //     .pop()
+                                                        }
+                                                    }),
                                             FlatButton(
                                               child: Text('취소'),
                                               onPressed: () {
@@ -368,6 +411,7 @@ void _simpleAlert(BuildContext context, OperationException error) =>
               child: const Text('확인'),
               onPressed: () {
                 Navigator.of(context).pop();
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
             )
           ],

@@ -111,13 +111,13 @@
     },
     {
       "name": "ffi",
-      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/ffi-1.0.0",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/ffi-1.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/file-6.1.0",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/file-6.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -327,7 +327,7 @@
     },
     {
       "name": "pedantic",
-      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.0",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -483,9 +483,9 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.0.5",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.13"
     },
     {
       "name": "xdg_directories",
@@ -512,7 +512,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-12T11:29:45.269188Z",
+  "generated": "2021-06-20T00:39:26.385739Z",
   "generator": "pub",
   "generatorVersion": "2.14.0-74.0.dev"
 }

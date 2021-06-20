@@ -17,17 +17,20 @@ class Bottom extends StatelessWidget {
               icon: Icon(
                 Icons.home,
                 size: 30,
+                semanticLabel: "홈 탭 전환",
               ),
             ),
             Tab(
               icon: Icon(
                 Icons.notifications,
                 size: 30,
+                semanticLabel: "하차벨 탭 전환",
               ),
             ),
             Tab(
               icon: Icon(
                 Icons.directions_bus_outlined,
+                semanticLabel: "정류소 선택 탭 전환",
                 size: 30,
               ),
             ),
