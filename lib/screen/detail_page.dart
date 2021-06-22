@@ -265,6 +265,7 @@ class _DetailPage extends State<DetailPage> {
                                 onPressed: () => _controller.previousPage(),
                                 child: Text(
                                   '<-',
+                                  semanticsLabel: "이전",
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
@@ -281,6 +282,7 @@ class _DetailPage extends State<DetailPage> {
                                   borderRadius: BorderRadius.circular(9.0)),
                               onPressed: () => _controller.nextPage(),
                               child: Text('->',
+                                  semanticsLabel: "다음",
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold)),

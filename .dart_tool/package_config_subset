@@ -86,6 +86,14 @@ flutter_dotenv
 2.0
 file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_dotenv-3.1.0/
 file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_dotenv-3.1.0/lib/
+flutter_easyloading
+2.2
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_easyloading-2.2.2/
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_easyloading-2.2.2/lib/
+flutter_spinkit
+2.5
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2+1/
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2+1/lib/
 fluttertoast
 2.7
 file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/fluttertoast-7.1.8/
@@ -304,8 +312,8 @@ file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/websocket-0.0.5/
 file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/websocket-0.0.5/lib/
 win32
 2.13
-file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.1/
-file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.1/lib/
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.2/
+file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.2/lib/
 xdg_directories
 2.3
 file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.1.2/

@@ -140,6 +140,18 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "flutter_easyloading",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_easyloading-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_spinkit",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/kang-seokwon/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -483,7 +495,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.1",
+      "rootUri": "file:///Users/kang-seokwon/.pub-cache/hosted/pub.dartlang.org/win32-2.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
@@ -512,7 +524,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-06-20T00:39:26.385739Z",
+  "generated": "2021-06-22T10:49:56.323122Z",
   "generator": "pub",
   "generatorVersion": "2.14.0-74.0.dev"
 }

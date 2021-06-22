@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'beacon_info.dart';
 import 'beacon_receive.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class BeaconSend extends StatefulWidget {
   int minor;
@@ -49,6 +50,7 @@ class _BeaconSendState extends State<BeaconSend> {
         _isAdvertising = isAdvertising;
       });
     });
+    EasyLoading.show(status: 'Use in initState');
   }
 
   @override
@@ -123,6 +125,8 @@ class _BeaconSendState extends State<BeaconSend> {
         builder: (BuildContext context) {
           Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pop();
+            //DefaultTabController.of(context).animateTo(0);
+            //Navigator.popUntil(context, ModalRoute.withName('/'));
           });
           return AlertDialog(
               shape: RoundedRectangleBorder(
@@ -190,6 +194,7 @@ class _BeaconSendState extends State<BeaconSend> {
                         setState(() {
                           print("beacon send to stop");
                           beaconBroadcast.stop();
+                          DefaultTabController.of(context).animateTo(0);
                           //  message = "하차벨 불가";
                         });
 
@@ -201,9 +206,9 @@ class _BeaconSendState extends State<BeaconSend> {
                   }
                 : null,
             label: Text("")),
-        Text('$message',
-            style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center)
+        // Text('$message',
+        //     style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+        //     textAlign: TextAlign.center)
       ],
     )));
   }
