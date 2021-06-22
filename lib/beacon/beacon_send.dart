@@ -50,7 +50,7 @@ class _BeaconSendState extends State<BeaconSend> {
         _isAdvertising = isAdvertising;
       });
     });
-    EasyLoading.show(status: 'Use in initState');
+    //EasyLoading.show(status: 'Use in initState');
   }
 
   @override
@@ -163,53 +163,64 @@ class _BeaconSendState extends State<BeaconSend> {
   Widget build(BuildContext context) {
     iconSize = MediaQuery.of(context).size.height * 0.4;
 
-    return Scaffold(
-        body: Center(
-            child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FlatButton.icon(
-            icon: setIconColor(),
-            onPressed: isEnabled()
-                ? () async {
-                    if (DefaultTabController.of(context).index == 1) {
-                      await BeaconsPlugin.stopMonitoring;
-                      print("전달받은 minor는 " + widget.minor.toString());
+    return isEnabled()
+        ? Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FlatButton.icon(
+                      icon: setIconColor(),
+                      onPressed: isEnabled()
+                          ? () async {
+                              if (DefaultTabController.of(context).index == 1) {
+                                await BeaconsPlugin.stopMonitoring;
+                                print("전달받은 minor는 " + widget.minor.toString());
 
-                      beaconBroadcast
-                          .setUUID(beacon_Info.uuid)
-                          .setMajorId(beacon_Info.major)
-                          .setMinorId(widget.minor)
-                          .setTransmissionPower(beacon_Info.transmissionPower)
-                          .setAdvertiseMode(beacon_Info.advertiseMode)
-                          .setIdentifier(beacon_Info.identifier)
-                          .setLayout(beacon_Info.layout)
-                          .setManufacturerId(beacon_Info.manufacturerId)
-                          .setExtraData(beacon_Info.extraData)
-                          .start();
+                                beaconBroadcast
+                                    .setUUID(beacon_Info.uuid)
+                                    .setMajorId(beacon_Info.major)
+                                    .setMinorId(widget.minor)
+                                    .setTransmissionPower(
+                                        beacon_Info.transmissionPower)
+                                    .setAdvertiseMode(beacon_Info.advertiseMode)
+                                    .setIdentifier(beacon_Info.identifier)
+                                    .setLayout(beacon_Info.layout)
+                                    .setManufacturerId(
+                                        beacon_Info.manufacturerId)
+                                    .setExtraData(beacon_Info.extraData)
+                                    .start();
 
-                      _showDialog();
+                                _showDialog();
 
-                      Future.delayed(const Duration(seconds: 3), () {
-                        setState(() {
-                          print("beacon send to stop");
-                          beaconBroadcast.stop();
-                          DefaultTabController.of(context).animateTo(0);
-                          //  message = "하차벨 불가";
-                        });
+                                Future.delayed(const Duration(seconds: 3), () {
+                                  setState(() {
+                                    print("beacon send to stop");
+                                    beaconBroadcast.stop();
+                                    DefaultTabController.of(context)
+                                        .animateTo(0);
+                                    //  message = "하차벨 불가";
+                                  });
 
-                        ableToRun = false;
-                        setIconColor();
-                        widget.minor = 0;
-                      });
-                    }
-                  }
-                : null,
-            label: Text("")),
-        // Text('$message',
-        //     style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-        //     textAlign: TextAlign.center)
-      ],
-    )));
+                                  ableToRun = false;
+                                  setIconColor();
+                                  widget.minor = 0;
+                                });
+                              }
+                            }
+                          : null,
+                      label: Text("")),
+                  // Text('$message',
+                  //     style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                  //     textAlign: TextAlign.center)
+                ],
+              ),
+            ),
+          )
+        : //EasyLoading.show(status: 'Use in initState');
+        Center(
+            child: CircularProgressIndicator(
+            semanticsLabel: '가까운 하차벨을 찾고 있습니다.',
+          ));
   }
 }

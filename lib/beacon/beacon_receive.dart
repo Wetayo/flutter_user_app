@@ -26,7 +26,7 @@ class _BeaconReceiveState extends State<BeaconReceive> {
   void initState() {
     super.initState();
     initPlatformState();
-    EasyLoading.show(status: 'Use in initState');
+    //EasyLoading.show(status: 'Use in initState');
   }
 
   @override

@@ -236,6 +236,8 @@ class _DetailPage extends State<DetailPage> {
                                       style: TextStyle(
                                           fontSize: 65.0,
                                           fontWeight: FontWeight.bold),
+                                      semanticsLabel:
+                                          '${_data[index].routeName} 번 버스',
                                     ),
                                   if (_data.length > 0)
                                     Text(
@@ -243,12 +245,15 @@ class _DetailPage extends State<DetailPage> {
                                       style: TextStyle(
                                           fontSize: 50.0,
                                           fontWeight: FontWeight.bold),
+                                      semanticsLabel:
+                                          '도착까지 ${_data[index].predictTime1} 분 남았습니다.',
                                     )
                                   else
                                     Text('도착 버스 정보가 없습니다.')
                                 ],
                               ),
                             ),
+                            onTap: () => print('tap test'),
                           );
                         },
                       )),
