@@ -298,25 +298,28 @@ class _DetailPage extends State<DetailPage> {
                       ),
                       Mutation(
                         options: MutationOptions(
-                          document: gql(
-                              """mutation CreateRide(\$stationId : Int!, \$routeId : Int!){
+                            document: gql(
+                                """mutation CreateRide(\$stationId : Int!, \$routeId : Int!){
                       createRide(stationId : \$stationId, routeId : \$routeId){
                         stationId
                         routeId
                       }
                     }"""),
-                          update: (GraphQLDataProxy cache, QueryResult result) {
-                            return cache;
-                          },
-                          onError: (OperationException error) {
-                            setState(() {
-                              checkError = 1;
-                            });
-                            _simpleAlert(context, error);
-                          },
-                          onCompleted: (dynamic resultData) =>
-                              Navigator.of(context).pop(),
-                        ),
+                            update:
+                                (GraphQLDataProxy cache, QueryResult result) {
+                              return cache;
+                            },
+                            onError: (OperationException error) {
+                              setState(() {
+                                checkError = 1;
+                              });
+                              _simpleAlert(context, error);
+                            },
+                            onCompleted: (dynamic resultData) {
+                              _simpleAlert2(context, "000");
+                            }
+                            //Navigator.of(context).pop(),
+                            ),
                         builder: (
                           RunMutation runMutation,
                           QueryResult result,
@@ -339,48 +342,53 @@ class _DetailPage extends State<DetailPage> {
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('탑승 예약'),
-                                          content: SingleChildScrollView(
-                                            child: ListBody(
-                                              children: <Widget>[
-                                                Text(
-                                                    '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?'),
-                                              ],
+                                        return Semantics(
+                                          child: AlertDialog(
+                                            semanticLabel:
+                                                '탑승 예약 알림창   ${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?     탑승을 희망하시면 확인을 눌러주세요.',
+                                            title: Text('탑승 예약'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text(
+                                                      '${_data[_controller.getIndex()].routeName}번 버스를 탑승 하시겠습니까?'),
+                                                ],
+                                              ),
                                             ),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                  child: Text('확인'),
+                                                  onPressed: () => {
+                                                        runMutation(
+                                                          {
+                                                            'stationId':
+                                                                999999999,
+                                                            'routeId':
+                                                                999999999,
+                                                          },
+                                                        ),
+                                                        if (checkError == 1)
+                                                          {
+                                                            Navigator.popUntil(
+                                                                context,
+                                                                ModalRoute
+                                                                    .withName(
+                                                                        '/'))
+                                                          }
+                                                        else
+                                                          {
+                                                            // Navigator.of(context)
+                                                            //     .pop()
+                                                          }
+                                                      }),
+                                              FlatButton(
+                                                child: Text('취소'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                                child: Text('확인'),
-                                                onPressed: () => {
-                                                      runMutation(
-                                                        {
-                                                          'stationId':
-                                                              999999999,
-                                                          'routeId': 999999999,
-                                                        },
-                                                      ),
-                                                      if (checkError == 1)
-                                                        {
-                                                          Navigator.popUntil(
-                                                              context,
-                                                              ModalRoute
-                                                                  .withName(
-                                                                      '/'))
-                                                        }
-                                                      else
-                                                        {
-                                                          // Navigator.of(context)
-                                                          //     .pop()
-                                                        }
-                                                    }),
-                                            FlatButton(
-                                              child: Text('취소'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                          ],
                                         );
                                       });
                                 },
@@ -411,8 +419,35 @@ void _simpleAlert(BuildContext context, OperationException error) =>
         Map<String, dynamic> errorcode = error.graphqlErrors.single.extensions;
         print(errorcode['errorCode'].toString());
         print(error.graphqlErrors);
+        return Semantics(
+          child: AlertDialog(
+            semanticLabel: MutationError(errorcode['errorCode'].toString()) +
+                '확인 버튼을 눌러주세요.',
+            title: Text(MutationError(errorcode['errorCode'].toString())),
+            actions: <Widget>[
+              SimpleDialogOption(
+                child: const Text('확인'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+
+void _simpleAlert2(BuildContext context, String error) =>
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        //Map<String, dynamic> errorcode = error.graphqlErrors.single.extensions;
+        //print(errorcode['errorCode'].toString());
+        //print(error.graphqlErrors);
         return AlertDialog(
-          title: Text(MutationError(errorcode['errorCode'].toString())),
+          semanticLabel: MutationError(error) + '확인 버튼을 눌러주세요.',
+          title: Text(MutationError(error)),
           actions: <Widget>[
             SimpleDialogOption(
               child: const Text('확인'),
@@ -428,7 +463,10 @@ void _simpleAlert(BuildContext context, OperationException error) =>
 
 String MutationError(String errorCode) {
   if (errorCode == '430') {
-    return "이미 승차예약이 있어요";
+    return "이미 승차예약이 있어요.";
+  }
+  if (errorCode == '000') {
+    return "예약에 성공했어요.";
   } else {
     return "접근이 거부되었습니다.";
   }

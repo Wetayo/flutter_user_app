@@ -129,6 +129,7 @@ class _BeaconSendState extends State<BeaconSend> {
             //Navigator.popUntil(context, ModalRoute.withName('/'));
           });
           return AlertDialog(
+              semanticLabel: '하차벨을 눌렀습니다.',
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               content: SizedBox(
@@ -164,56 +165,67 @@ class _BeaconSendState extends State<BeaconSend> {
     iconSize = MediaQuery.of(context).size.height * 0.4;
 
     return isEnabled()
-        ? Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FlatButton.icon(
-                      icon: setIconColor(),
-                      onPressed: isEnabled()
-                          ? () async {
-                              if (DefaultTabController.of(context).index == 1) {
-                                await BeaconsPlugin.stopMonitoring;
-                                print("전달받은 minor는 " + widget.minor.toString());
+        ? Semantics(
+            label: '가까운 하차벨을 찾았어요. 벨을 선택하고 두 번 눌러주세요.',
+            child: Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Semantics(
+                      label: '하차벨 버튼',
+                      child: FlatButton.icon(
+                        icon: setIconColor(),
+                        onPressed: isEnabled()
+                            ? () async {
+                                if (DefaultTabController.of(context).index ==
+                                    1) {
+                                  await BeaconsPlugin.stopMonitoring;
+                                  print(
+                                      "전달받은 minor는 " + widget.minor.toString());
 
-                                beaconBroadcast
-                                    .setUUID(beacon_Info.uuid)
-                                    .setMajorId(beacon_Info.major)
-                                    .setMinorId(widget.minor)
-                                    .setTransmissionPower(
-                                        beacon_Info.transmissionPower)
-                                    .setAdvertiseMode(beacon_Info.advertiseMode)
-                                    .setIdentifier(beacon_Info.identifier)
-                                    .setLayout(beacon_Info.layout)
-                                    .setManufacturerId(
-                                        beacon_Info.manufacturerId)
-                                    .setExtraData(beacon_Info.extraData)
-                                    .start();
+                                  beaconBroadcast
+                                      .setUUID(beacon_Info.uuid)
+                                      .setMajorId(beacon_Info.major)
+                                      .setMinorId(widget.minor)
+                                      .setTransmissionPower(
+                                          beacon_Info.transmissionPower)
+                                      .setAdvertiseMode(
+                                          beacon_Info.advertiseMode)
+                                      .setIdentifier(beacon_Info.identifier)
+                                      .setLayout(beacon_Info.layout)
+                                      .setManufacturerId(
+                                          beacon_Info.manufacturerId)
+                                      .setExtraData(beacon_Info.extraData)
+                                      .start();
 
-                                _showDialog();
+                                  _showDialog();
 
-                                Future.delayed(const Duration(seconds: 3), () {
-                                  setState(() {
-                                    print("beacon send to stop");
-                                    beaconBroadcast.stop();
-                                    DefaultTabController.of(context)
-                                        .animateTo(0);
-                                    //  message = "하차벨 불가";
+                                  Future.delayed(const Duration(seconds: 3),
+                                      () {
+                                    setState(() {
+                                      print("beacon send to stop");
+                                      beaconBroadcast.stop();
+                                      DefaultTabController.of(context)
+                                          .animateTo(0);
+                                      //  message = "하차벨 불가";
+                                    });
+
+                                    ableToRun = false;
+                                    setIconColor();
+                                    widget.minor = 0;
                                   });
-
-                                  ableToRun = false;
-                                  setIconColor();
-                                  widget.minor = 0;
-                                });
+                                }
                               }
-                            }
-                          : null,
-                      label: Text("")),
-                  // Text('$message',
-                  //     style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-                  //     textAlign: TextAlign.center)
-                ],
+                            : null,
+                        label: Text(""),
+                      ),
+                    )
+                    // Text('$message',
+                    //     style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                    //     textAlign: TextAlign.center)
+                  ],
+                ),
               ),
             ),
           )
