@@ -7,6 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:wetayo_app/api/config.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+
 class StationScreen extends StatefulWidget {
   _StationScreenState createState() => _StationScreenState();
 }
@@ -14,13 +16,18 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   String _text = '현재 위치 : 모름';
   //String _x, _y; // 현재 위치의 위도, 경도 (x, y)
-  String _x = '126.7309';
-  String _y = '37.3412';
+  // String _x = '';
+  // String _y = '';
+
+  String _y = '126.736098';
+  String _x = '37.389725';
 
   bool _isLoading = false;
 
   String name;
   String mobileNum;
+  QueryResult queryResult;
+  bool queryLoading = true;
 
   void onClickStation(BuildContext context, String _item) {
     Navigator.push(
@@ -40,11 +47,79 @@ class _StationScreenState extends State<StationScreen> {
     BeaconsPlugin.stopMonitoring;
     _checkPermissions();
     _refresh();
+    getNearStation(_x, _y, 0.8);
   }
 
   // GPS 권한 요청 함수
   _checkPermissions() async {
     await PermissionHandler().requestPermissions([PermissionGroup.location]);
+  }
+
+  // GraphQLClient 클라이언트 설정 함수
+  GraphQLClient weTayoGraphQLClient() {
+    final Link _link = HttpLink(
+      DotEnv.env['GQL_URL'],
+      defaultHeaders: {
+        'api-key': DotEnv.env['GQL_HEADER'],
+      },
+    );
+
+    return GraphQLClient(
+      cache: GraphQLCache(),
+      link: _link,
+    );
+  }
+
+  void getNearStation(String gpsX, String gpsY, double distance) async {
+    // setState(() {
+    //   _isRide = true;
+    // });
+    print('정류소 조회중..');
+
+    final GraphQLClient _client = weTayoGraphQLClient();
+
+    final QueryOptions options = QueryOptions(
+        document: gql(
+            """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
+            getStations(gpsY: \$gpsY gpsX: \$gpsX distance: \$distance){
+              stationId
+              stationName
+              mobileNumber
+              distance
+                routes{
+                  routeId
+                  routeNumber
+                }
+              }
+              }"""),
+        variables: {'gpsY': gpsX, 'gpsX': gpsY, 'distance': distance});
+
+    final QueryResult result = await _client.query(options);
+
+    if (result.data["getStations"].length <= 0) {
+      print('가까운 정류소가 업어요ㅠㅠ');
+      return;
+    } else {
+      _isLoading = result.isLoading;
+      print('결과 출력 >> ${result.data["getStations"][0]["stationName"]}');
+      setState(() {
+        name = result.data["getStations"][0]["stationName"].toString();
+        mobileNum = result.data["getStations"][0]["mobileNumber"].toString();
+        queryResult = result;
+        queryLoading = false;
+      });
+      // name = result.data["getStations"][0]["stationName"].toString();
+      // mobileNum =
+      //     result.data["getStations"][0]["mobileNumber"].toString();
+      // print(name);
+      // print(
+      //     'routeName >> ${result.data['getStations'][0]['routes'][1]}');
+      return;
+    }
+
+    // print('_isCurrentRide >> $_isCurrentRide');
+
+    // return;
   }
 
   // 내 위치 조희 함수
@@ -63,13 +138,14 @@ class _StationScreenState extends State<StationScreen> {
     } on PlatformException {
       _newText = '현재 위치는 사용할 수 없습니다.';
     }
-    setState(() {
-      _text = _newText;
-      _x = _newX;
-      _y = _newY;
-    });
+    // 앱 설치할때는 아래 주석 해제
+    // setState(() {
+    //   _text = _newText;
+    //   _x = _newX;
+    //   _y = _newY;
+    // });
 
-    print(_text);
+    // print(_text);
   }
 
   @override
@@ -79,10 +155,13 @@ class _StationScreenState extends State<StationScreen> {
         children: <Widget>[
           Container(
             alignment: Alignment(-0.7, 0),
-            child: Text(
-              '나와 가장 가까운 정류소',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Text(
+                '나와 가장 가까운 정류소',
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           Container(
@@ -94,7 +173,8 @@ class _StationScreenState extends State<StationScreen> {
                 borderRadius: BorderRadius.circular(18.0),
               ),
               child: Text(
-                '\'${name}\'\n정류소 선택하기',
+                // '\'${name}\'\n정류소 선택하기',
+                '가까운 정류소 \n선택하기',
                 style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -112,55 +192,67 @@ class _StationScreenState extends State<StationScreen> {
               textAlign: TextAlign.center,
             ),
           ),
-          Query(
-            options: QueryOptions(
-                document: gql(
-                    """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
-            getStations(gpsY: \$gpsY gpsX: \$gpsX distance: \$distance){
-              stationId
-              stationName
-              mobileNumber
-              distance
-                routes{
-                  routeId
-                  routeNumber
-                }
-              }
-              }"""),
-                variables: {'gpsY': _x, 'gpsX': _y, 'distance': 0.8}),
-            builder: (QueryResult result,
-                {VoidCallback refetch, FetchMore fetchMore}) {
-              if (result.exception != null) {
-                return Center(
-                    child:
-                        Text("에러가 발생했습니다!!!\n${result.exception.toString()}"));
-              }
-              if (result.isLoading) {
-                // setState(() {
-                //   _isLoading = result.isLoading;
-                // });
+          // Query(
+          //   options: QueryOptions(
+          //       document: gql(
+          //           """query getStations(\$gpsY : Float!, \$gpsX : Float!, \$distance : Float!){
+          //   getStations(gpsY: \$gpsY gpsX: \$gpsX distance: \$distance){
+          //     stationId
+          //     stationName
+          //     mobileNumber
+          //     distance
+          //       routes{
+          //         routeId
+          //         routeNumber
+          //       }
+          //     }
+          //     }"""),
+          //       variables: {
+          //         'gpsY': _x,
+          //         'gpsX': _y,
+          //         'distance': 0.8
+          //       }), // 거리 0.8로 설정
+          //   builder: (QueryResult result,
+          //       {VoidCallback refetch, FetchMore fetchMore}) {
+          //     if (result.exception != null) {
+          //       return Center(
+          //           child:
+          //               Text("에러가 발생했습니다!!!\n${result.exception.toString()}"));
+          //     }
+          //     if (result.isLoading) {
+          //       // setState(() {
+          //       //   _isLoading = result.isLoading;
+          //       // });
 
-                return Center(
+          //       return Center(
+          //         child: CircularProgressIndicator(),
+          //       );
+          //     }
+          //     if (result.data["getStations"].length <= 0) {
+          //       return Center(
+          //         child: Text("가까운 정류소가 없어요ㅠㅠ"),
+          //       );
+          //     } else {
+          //       _isLoading = result.isLoading;
+          //       // print(result.data.toString());
+          //       // name = result.data["getStations"][0]["stationName"].toString();
+          //       // mobileNum =
+          //       //     result.data["getStations"][0]["mobileNumber"].toString();
+          //       // print(name);
+          //       // print(
+          //       //     'routeName >> ${result.data['getStations'][0]['routes'][1]}');
+          //       return _buildList(context, result);
+          //     }
+          //   },
+          // ),
+          // queryResult.data["getStations"].length <= 0
+          queryLoading
+              ? Center(
                   child: CircularProgressIndicator(),
-                );
-              }
-              if (result.data["getStations"].length <= 0) {
-                return Center(
-                  child: Text("가까운 정류소가 없어요ㅠㅠ"),
-                );
-              } else {
-                _isLoading = result.isLoading;
-                print(result.data.toString());
-                name = result.data["getStations"][0]["stationName"].toString();
-                mobileNum =
-                    result.data["getStations"][0]["mobileNumber"].toString();
-                print(name);
-                print(
-                    'routeName >> ${result.data['getStations'][0]['routes'][1]}');
-                return _buildList(context, result);
-              }
-            },
-          ),
+                )
+              : queryResult.data["getStations"].length <= 0
+                  ? Text("가까운 정류소가 없어요ㅠㅠ")
+                  : _buildList(context, queryResult)
         ],
       ),
     );
@@ -196,13 +288,17 @@ class _StationScreenState extends State<StationScreen> {
                         //   Icons.star,
                         //   color: Colors.yellow,
                         // ),
-                        Text(
-                          item["mobileNumber".toString()],
-                          style: TextStyle(color: Colors.yellow, fontSize: 14),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "${item["distance"]}m",
+                            style:
+                                TextStyle(color: Colors.yellow, fontSize: 17),
+                          ),
                         )
                       ],
                     ),
-                    trailing: Text("distance\n${item["distance"]}"),
+                    // trailing: Text("${item["distance"]}m"),
                   ),
                 ),
               );

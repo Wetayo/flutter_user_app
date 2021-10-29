@@ -35,8 +35,10 @@ dependencies:
   shared_preferences: ^0.5.6+3
   beacons_plugin: ^1.0.20
   beacon_broadcast: ^0.2.3
+  circular_countdown_timer: ^0.0.9
   
   flutter_dotenv: ^3.1.0
+  flutter_easyloading: ^2.2.2
 
 
   # The following adds the Cupertino Icons font to your application.

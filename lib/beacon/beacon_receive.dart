@@ -6,6 +6,7 @@ import 'package:wetayo_app/beacon/beacon_send.dart';
 import 'beacon_info.dart';
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class BeaconReceive extends StatefulWidget {
   // int tabBarIndex;
@@ -25,6 +26,7 @@ class _BeaconReceiveState extends State<BeaconReceive> {
   void initState() {
     super.initState();
     initPlatformState();
+    //EasyLoading.show(status: 'Use in initState');
   }
 
   @override
