@@ -6,7 +6,7 @@ class GraphqlService {
   static final HttpLink httpLink = HttpLink(DotEnv.env['GQL_URL'],
       defaultHeaders: <String, String>{'api-key': DotEnv.env['GQL_HEADER']});
   final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-      GraphQLClient(link: httpLink as Link, cache: GraphQLCache()));
+      GraphQLClient(link: httpLink, cache: GraphQLCache()));
 }
 
 final graphqlService = GraphqlService();

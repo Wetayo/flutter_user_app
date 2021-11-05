@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:wetayo_app/screen/home_screen.dart';
+// import 'package:wetayo_app/screen/home_screen.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:beacon_broadcast/beacon_broadcast.dart';
 import 'package:flutter/material.dart';
 import 'beacon_info.dart';
-import 'beacon_receive.dart';
+// import 'beacon_receive.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class BeaconSend extends StatefulWidget {
   int minor;
